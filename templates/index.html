@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Platform Ecosystem</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #0b0c10; color: #c5c6c7; padding: 40px; }
+        .card { background: #1f2833; border-radius: 8px; padding: 30px; max-width: 600px; margin: 0 auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .hidden { display: none; }
+        .btn { background: #45f3ff; color: #0b0c10; border: none; padding: 12px 24px; font-weight: bold; border-radius: 4px; cursor: pointer; }
+        .btn:hover { background: #1f2833; color: #45f3ff; border: 1px solid #45f3ff; }
+        .input-field { width: 100%; padding: 10px; margin: 10px 0; background: #0b0c10; border: 1px solid #45f3ff; color: #fff; box-sizing: border-box; }
+        .option-group { display: flex; justify-content: space-between; margin: 15px 0; }
+    </style>
+</head>
+<body>
+
+<div class="card" id="app-container">
+    <!-- View Phase 1: Registration -->
+    <div id="step-registration">
+        <h2>Create Account Interface</h2>
+        <input type="text" id="username" class="input-field" placeholder="Username Unique Handle">
+        <input type="email" id="email" class="input-field" placeholder="Email Address Path">
+        <button class="btn" onclick="submitRegistration()">Initialize Account</button>
+    </div>
+
+    <!-- View Phase 2: Premium Gateway Access Fee -->
+    <div id="step-payment" class="hidden">
+        <h2>Premium Platform Activation</h2>
+        <p>Dynamic access tier fee evaluated relative to present regional profile demand matrix.</p>
+        <p><strong>Required Entry Token: <span id="dynamic-fee">€35</span></strong></p>
+        <button class="btn" onclick="executeMockPayment()">Authorize Fee Processing Token</button>
+    </div>
+
+    <!-- View Phase 3: Personality Matrix Engine -->
+    <div id="step-questionnaire" class="hidden">
+        <h2>Compatibility Assessment Array</h2>
+        <div id="question-payload"></div>
+        <button class="btn" onclick="submitAnswers()">Analyze Architecture Metrics</button>
+    </div>
+</div>
+
+<script>
+    let sessionUser = { id: null, paid: false };
+    
+    // Simulate current demand calculations between 30 and 50 Euro
+    const computedFee = Math.floor(Math.random() * (50 - 30 + 1)) + 30;
+    document.getElementById('dynamic-fee').innerText = `€${computedFee}`;
+
+    async function postData(url = '', data = {}) {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        return response.json();
+    }
+
+    function submitRegistration() {
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        
+        postData('/api/register', { username, email }).then(res => {
+            if(res.user_id) {
+                sessionUser.id = res.user_id;
+                document.getElementById('step-registration').classList.add('hidden');
+                document.getElementById('step-payment').classList.remove('hidden');
+            }
+        });
+    }
+
+    function executeMockPayment() {
+        postData('/api/payment', { user_id: sessionUser.id, fee: computedFee }).then(res => {
+            if(res.access) {
+                sessionUser.paid = true;
+                loadQuestionnaire();
+            }
+        });
+    }
+
+    function loadQuestionnaire() {
+        fetch(`/api/questions?user_id=${sessionUser.id}`)
+            .then(res => res.json())
+            .then(data => {
+                if(data.questions) {
+                    document.getElementById('step-payment').classList.add('hidden');
+                    const container = document.getElementById('question-payload');
+                    container.innerHTML = '';
+                    
+                    data.questions.forEach((q) => {
+                        container.innerHTML += `
+                            <div style="margin-bottom:20px;">
+                                <p><strong>[${q.category}]</strong> ${q.text}</p>
+                                <div class="option-group">
+                                    <label><input type="radio" name="q_${q.id}" value="1"> Strongly Disagree</label>
+                                    <label><input type="radio" name="q_${q.id}" value="3" checked> Neutral</label>
+                                    <label><input type="radio" name="q_${q.id}" value="5"> Strongly Agree</label>
+                                </div>
+                            </div><hr style="border-color:#1f2833;">`;
+                    });
+                    document.getElementById('step-questionnaire').classList.remove('hidden');
+                }
+            });
+    }
+
+    function submitAnswers() {
+        alert("Personality profile matrix captured into core data store backend.");
+    }
+</script>
+</body>
+  </html>
+          
