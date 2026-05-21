@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2c666e">
+    <title>Vaspera</title>
+    <style>
+        body { font-family: sans-serif; background-color: #0b0c10; text-align: center; color: #c5c6c7; padding-top: 50px; }
+        .pwa-frame { border: 2px solid #2c666e; border-radius: 12px; max-width: 400px; margin: 0 auto; background: #1f2833; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .hidden { display: none !important; }
+        .tagline { color: #45f3ff; font-size: 1.2rem; font-style: italic; margin-top: 5px; }
+        .btn { background: #45f3ff; color: #0b0c10; border: none; padding: 12px 24px; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="pwa-frame">
+        <h1>Vaspera</h1>
+        <p id="app-tagline" class="tagline hidden">Where Stars Align</p>
+        <hr style="border-color: #2c666e; border-style: solid; opacity: 0.3;">
+        
+        <p>Your journey into premium matchmaking.</p>
+
+        <div id="install-ui" class="hidden">
+            <p>Enhance your experience. Download the standalone app container.</p>
+            <button class="btn" id="btn-download">Download App</button>
+        </div>
+    </div>
+
+    <script>
+        let deferredPrompt;
+        const subline = document.getElementById('app-tagline');
+        const installUi = document.getElementById('install-ui');
+        const downloadBtn = document.getElementById('btn-download');
+
+        // --- PWA SERVICE WORKER REGISTRATION ---
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker Registered'))
+                    .catch(err => console.error('PWA Registration Aborted:', err));
+            });
+        }
+
+        // --- TRACKING THE APP DOWNLOAD STATE ---
+
+        // Activates when the mobile device detects the site can be installed
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installUi.classList.remove('hidden'); // Show download button
+        });
+
+        downloadBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                // Temporarily show subline while downloading is happening
+                subline.classList.remove('hidden'); 
+                deferredPrompt = null;
+                installUi.classList.add('hidden');
+            }
+        });
+
+        // Global Event Hook: Triggers immediately when the app download succeeds
+        window.addEventListener('appinstalled', (evt) => {
+            console.log('Vaspera successfully added to device screen.');
+            subline.classList.remove('hidden'); // Keep subline permanently visible
+        });
+
+        // Keeps subline visible if someone opens the app after downloading it
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+           subline.classList.remove('hidden');
+        }
+    </script>
+</body>
+      </html>
+
