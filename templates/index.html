@@ -6,26 +6,98 @@
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#2c666e">
     <title>Vaspera</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: sans-serif; background-color: #0b0c10; text-align: center; color: #c5c6c7; padding-top: 50px; }
-        .pwa-frame { border: 2px solid #2c666e; border-radius: 12px; max-width: 400px; margin: 0 auto; background: #1f2833; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: #0b0c10; 
+            text-align: center; 
+            color: #c5c6c7; 
+            padding: 60px 20px; 
+        }
+        .pwa-frame { 
+            border: 1px solid rgba(69, 243, 255, 0.2); 
+            border-radius: 16px; 
+            max-width: 420px; 
+            margin: 0 auto; 
+            background: #1f2833; 
+            padding: 40px 30px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+        }
+        h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 2.8rem; 
+            letter-spacing: 4px; 
+            color: #ffffff; 
+            margin-bottom: 0;
+            font-weight: 400;
+        }
         .hidden { display: none !important; }
-        .tagline { color: #45f3ff; font-size: 1.2rem; font-style: italic; margin-top: 5px; }
-        .btn { background: #45f3ff; color: #0b0c10; border: none; padding: 12px 24px; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 15px; }
+        
+        /* The special tagline parameters */
+        .tagline { 
+            font-family: 'Playfair Display', serif;
+            color: #45f3ff; 
+            font-size: 1.1rem; 
+            font-style: italic; 
+            margin-top: 8px; 
+            letter-spacing: 2px;
+        }
+        
+        .divider {
+            width: 40px;
+            height: 1px;
+            background: #45f3ff;
+            margin: 25px auto;
+            opacity: 0.6;
+        }
+        
+        .description-text {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            letter-spacing: 1px;
+            color: #b3b4b5;
+            text-align: justify;
+            text-justify: inter-word;
+            margin-bottom: 30px;
+        }
+        
+        .btn { 
+            background: transparent; 
+            color: #45f3ff; 
+            border: 1px solid #45f3ff; 
+            padding: 14px 30px; 
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: bold; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: #45f3ff;
+            color: #0b0c10;
+        }
     </style>
 </head>
 <body>
 
     <div class="pwa-frame">
-        <h1>Vaspera</h1>
+        <h1>VASPERA</h1>
         <p id="app-tagline" class="tagline hidden">Where Stars Align</p>
-        <hr style="border-color: #2c666e; border-style: solid; opacity: 0.3;">
         
-        <p>Your journey into premium matchmaking.</p>
+        <div class="divider"></div>
+        
+        <div id="main-content" class="description-text">
+            Vaspera is a private digital salon for those who view connection as an art form rather than a game of chance. Rooted in the quiet elegance of continental courtships, our ecosystem brings together discerning individuals seeking intellectual harmony and profound aesthetic alignment. 
+            <br><br>
+            By moving beyond the noise of the superficial digital marketplace, Vaspera employs a meticulous matrix of personality compatibility to curate rare, intentional introductions. Here, we do not merely connect profiles; we orchestrate the architecture of romantic alignment for trajectories destined to converge. Access to this sanctuary is carefully gated by a variable demand token, ensuring our environment remains exclusively dedicated to those who approach companionship with absolute intention.
+        </div>
 
         <div id="install-ui" class="hidden">
-            <p>Enhance your experience. Download the standalone app container.</p>
-            <button class="btn" id="btn-download">Download App</button>
+            <button class="btn" id="btn-download">Enter the Environment</button>
         </div>
     </div>
 
@@ -35,28 +107,27 @@
         const installUi = document.getElementById('install-ui');
         const downloadBtn = document.getElementById('btn-download');
 
-        // --- PWA SERVICE WORKER REGISTRATION ---
+        // Service Worker operational check
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js')
-                    .then(reg => console.log('Service Worker Registered'))
-                    .catch(err => console.error('PWA Registration Aborted:', err));
+                    .then(reg => console.log('PWA system active'))
+                    .catch(err => console.error(err));
             });
         }
 
-        // --- TRACKING THE APP DOWNLOAD STATE ---
-
-        // Activates when the mobile device detects the site can be installed
+        // Detects if the mobile device browser supports installation
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            installUi.classList.remove('hidden'); // Show download button
+            installUi.classList.remove('hidden'); 
         });
 
+        // Trigger action when user taps "Enter the Environment"
         downloadBtn.addEventListener('click', async () => {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
-                // Temporarily show subline while downloading is happening
+                // Temporarily reveal subline during downloading lifecycle
                 subline.classList.remove('hidden'); 
                 deferredPrompt = null;
                 installUi.classList.add('hidden');
@@ -65,15 +136,13 @@
 
         // Global Event Hook: Triggers immediately when the app download succeeds
         window.addEventListener('appinstalled', (evt) => {
-            console.log('Vaspera successfully added to device screen.');
-            subline.classList.remove('hidden'); // Keep subline permanently visible
+            subline.classList.remove('hidden'); // Ensure subtitle stays visible
         });
 
-        // Keeps subline visible if someone opens the app after downloading it
+        // Keeps subline visible when running as a downloaded standalone app container
         if (window.matchMedia('(display-mode: standalone)').matches) {
            subline.classList.remove('hidden');
         }
     </script>
 </body>
-      </html>
-
+</html>
