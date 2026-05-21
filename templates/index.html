@@ -10,54 +10,42 @@
     
     <style>
         body { 
-            font-family: 'Montserrat', sans-serif; 
-            background-color: #0b0c10; 
-            text-align: center; 
-            color: #c5c6c7; 
-            padding: 40px 20px; 
+            font-family: 'Montserrat', sans-serif; background-color: #0b0c10; 
+            text-align: center; color: #c5c6c7; padding: 40px 20px; 
         }
         .pwa-frame { 
-            border: 1px solid rgba(69, 243, 255, 0.2); 
-            border-radius: 16px; 
-            max-width: 440px; 
-            margin: 0 auto; 
-            background: #1f2833; 
-            padding: 40px 30px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            border: 1px solid rgba(69, 243, 255, 0.2); border-radius: 16px; 
+            max-width: 440px; margin: 0 auto; background: #1f2833; 
+            padding: 40px 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
         }
         h1 { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 2.6rem; 
-            letter-spacing: 4px; 
-            color: #ffffff; 
-            margin-bottom: 0;
-            font-weight: 400;
+            font-family: 'Playfair Display', serif; font-size: 2.6rem; 
+            letter-spacing: 4px; color: #ffffff; margin-bottom: 0; font-weight: 400;
         }
         .hidden { display: none !important; }
         .tagline { 
-            font-family: 'Playfair Display', serif;
-            color: #45f3ff; 
-            font-size: 1.1rem; 
-            font-style: italic; 
-            margin-top: 8px; 
-            letter-spacing: 2px;
+            font-family: 'Playfair Display', serif; color: #45f3ff; 
+            font-size: 1.1rem; font-style: italic; margin-top: 8px; letter-spacing: 2px;
         }
         .divider { width: 40px; height: 1px; background: #45f3ff; margin: 25px auto; opacity: 0.6; }
+        .description-text { font-size: 0.95rem; line-height: 1.8; letter-spacing: 1px; color: #b3b4b5; margin-bottom: 30px; text-align: justify; }
         
-        .description-text, .quiz-box {
-            font-size: 0.95rem; line-height: 1.8; letter-spacing: 1px; color: #b3b4b5; margin-bottom: 30px;
+        /* Interactive Input Form Formatting */
+        .input-field {
+            width: 100%; padding: 14px; margin: 10px 0; background: #0b0c10;
+            border: 1px solid rgba(69, 243, 255, 0.3); border-radius: 4px;
+            color: #fff; font-family: 'Montserrat', sans-serif; box-sizing: border-box;
         }
-        .description-text { text-align: justify; }
+        .input-field:focus { border-color: #45f3ff; outline: none; }
 
         .btn { 
             background: transparent; color: #45f3ff; border: 1px solid #45f3ff; 
             padding: 14px 30px; font-size: 0.85rem; letter-spacing: 2px;
             text-transform: uppercase; font-weight: bold; border-radius: 4px; 
-            cursor: pointer; transition: all 0.3s ease; width: 100%; box-sizing: border-box;
+            cursor: pointer; transition: all 0.3s ease; width: 100%; box-sizing: border-box; margin-top: 10px;
         }
         .btn:hover { background: #45f3ff; color: #0b0c10; }
 
-        /* Quiz Interface Styling */
         .question-title { font-family: 'Playfair Display', serif; color: #ffffff; font-size: 1.4rem; margin-bottom: 20px; }
         .matrix-options { display: flex; flex-direction: column; gap: 12px; text-align: left; margin-top: 20px; }
         .matrix-label { 
@@ -77,29 +65,29 @@
         
         <div id="view-welcome">
             <div class="description-text">
-                Vaspera is a private digital salon for those who view connection as an art form rather than a game of chance. Rooted in the quiet elegance of continental courtships, our ecosystem brings together discerning individuals seeking intellectual harmony and profound aesthetic alignment. 
-                <br><br>
-                By moving beyond the noise of the superficial digital marketplace, Vaspera employs a meticulous matrix of personality compatibility to curate rare, intentional introductions. Here, we do not merely connect profiles; we orchestrate the architecture of romantic alignment for trajectories destined to converge.
+                Vaspera is a private digital salon for those who view connection as an art form rather than a game of chance. Rooted in the quiet elegance of continental courtships, our ecosystem brings together discerning individuals seeking intellectual harmony and profound aesthetic alignment.
             </div>
-            
-            <div id="install-ui" class="hidden">
-                <button class="btn" id="btn-download">Enter the Environment</button>
-            </div>
-            <div id="fallback-ui">
-                <button class="btn" onclick="startEcosystemFlow()">Initialize Alignment Sequence</button>
-            </div>
+            <button class="btn" onclick="transitionToRegister()">Enter the Environment</button>
+        </div>
+
+        <div id="view-register" class="hidden">
+            <div class="question-title">Initialize Identity</div>
+            <p style="font-size:0.85rem; color:#b3b4b5; margin-bottom:20px;">Provide your signature details to establish an architectural baseline handle.</p>
+            <input type="text" id="reg-username" class="input-field" placeholder="Unique Handle / Username">
+            <input type="email" id="reg-email" class="input-field" placeholder="Email Address">
+            <button class="btn" onclick="submitIdentityData()">Request Verification</button>
         </div>
 
         <div id="view-quiz" class="hidden">
             <h3 id="question-number" style="color: #45f3ff; font-size: 0.8rem; letter-spacing: 2px;">SURVEY 01 / 03</h3>
-            <div id="question-text" class="question-title">How deeply do you prioritize intellectual solitude over collaborative social settings?</div>
+            <div id="question-text" class="question-title">...</div>
             
             <div class="matrix-options">
-                <label class="matrix-label"><input type="radio" name="matrix_input" value="1"> Absolute Variance (Strongly Disagree)</label>
+                <label class="matrix-label"><input type="radio" name="matrix_input" value="1"> Absolute Variance</label>
                 <label class="matrix-label"><input type="radio" name="matrix_input" value="2"> Slight Variance</label>
-                <label class="matrix-label"><input type="radio" name="matrix_input" value="3" checked> Symmetrical Balance (Neutral)</label>
+                <label class="matrix-label"><input type="radio" name="matrix_input" value="3" checked> Symmetrical Balance</label>
                 <label class="matrix-label"><input type="radio" name="matrix_input" value="4"> Soft Resonance</label>
-                <label class="matrix-label"><input type="radio" name="matrix_input" value="5"> Absolute Resonance (Strongly Agree)</label>
+                <label class="matrix-label"><input type="radio" name="matrix_input" value="5"> Absolute Resonance</label>
             </div>
             <br>
             <button class="btn" onclick="processNextQuestion()">Advance Trajectory</button>
@@ -114,67 +102,63 @@
     </div>
 
     <script>
-        let deferredPrompt;
-        const subline = document.getElementById('app-tagline');
-        const installUi = document.getElementById('install-ui');
-        const fallbackUi = document.getElementById('fallback-ui');
-        const downloadBtn = document.getElementById('btn-download');
-
-        // Sample questionnaire arrays parameters 
+        let sessionUserId = null;
         const questions = [
             "How deeply do you prioritize intellectual solitude over collaborative settings?",
-            "Do you consider financial and professional transparency critical in early connection stages?",
+            "Do you consider professional transparency critical in early connection stages?",
             "Does a partner's creative aesthetic expression hold equal weight to logical rationale?"
         ];
         let currentQuestionIndex = 0;
         let selectedAnswers = [];
 
-        // PWA operational verification registration
+        // Service Worker registration logic
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js').catch(err => console.error(err));
             });
         }
 
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            installUi.classList.remove('hidden'); 
-            fallbackUi.classList.add('hidden');
-        });
-
-        downloadBtn.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                subline.classList.remove('hidden'); 
-                deferredPrompt = null;
-                installUi.classList.add('hidden');
-                setTimeout(startEcosystemFlow, 1000); // Transitions to quiz right after prompt action
-            }
-        });
-
-        window.addEventListener('appinstalled', () => {
-            subline.classList.remove('hidden');
-        });
-
+        // Display subline checks for standalone Progressive Web App windows
         if (window.matchMedia('(display-mode: standalone)').matches) {
-           subline.classList.remove('hidden');
+           document.getElementById('app-tagline').classList.remove('hidden');
         }
 
-        // --- SCREEN VIEW TRANSITION OPERATIONS ---
-        function startEcosystemFlow() {
+        function transitionToRegister() {
             document.getElementById('view-welcome').classList.add('hidden');
-            document.getElementById('view-quiz').classList.remove('hidden');
-            renderQuestion();
+            document.getElementById('view-register').classList.remove('hidden');
+        }
+
+        // POST Request to Backend Database via Javascript Fetch API
+        async function submitIdentityData() {
+            const username = document.getElementById('reg-username').value;
+            const email = document.getElementById('reg-email').value;
+
+            if(!username || !email) { alert("Complete parameters requested."); return; }
+
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, email })
+            });
+            
+            const data = await response.json();
+            if(data.user_id) {
+                sessionUserId = data.user_id; // Capture database primary key identity
+                document.getElementById('view-register').classList.add('hidden');
+                document.getElementById('view-quiz').classList.remove('hidden');
+                renderQuestion();
+            } else {
+                alert(data.error || "Verification issue.");
+            }
         }
 
         function renderQuestion() {
             document.getElementById('question-number').innerText = `SURVEY 0${currentQuestionIndex + 1} / 0${questions.length}`;
             document.getElementById('question-text').innerText = questions[currentQuestionIndex];
-            document.querySelector('input[name="matrix_input"][value="3"]').checked = true; // resets option parameter to neutral
+            document.querySelector('input[name="matrix_input"][value="3"]').checked = true;
         }
 
-        function processNextQuestion() {
+        async function processNextQuestion() {
             const selectedRadio = document.querySelector('input[name="matrix_input"]:checked');
             selectedAnswers.push(selectedRadio.value);
 
@@ -182,10 +166,16 @@
             if (currentQuestionIndex < questions.length) {
                 renderQuestion();
             } else {
-                // All questions captured: reveal final alignment status screen
                 document.getElementById('view-quiz').classList.add('hidden');
                 document.getElementById('view-results').classList.remove('hidden');
-                console.log("Vector string array submitted to memory pool:", selectedAnswers.join(','));
+                
+                // Final sync: dispatch answer metrics vector parameter to user database row
+                const answerVectorString = selectedAnswers.join(',');
+                await fetch('/api/submit-quiz', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user_id: sessionUserId, answers: answerVectorString })
+                });
             }
         }
     </script>
