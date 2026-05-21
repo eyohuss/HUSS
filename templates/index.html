@@ -6,7 +6,7 @@
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#2c666e">
     <title>Vaspera</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
         body { 
@@ -14,12 +14,12 @@
             background-color: #0b0c10; 
             text-align: center; 
             color: #c5c6c7; 
-            padding: 60px 20px; 
+            padding: 40px 20px; 
         }
         .pwa-frame { 
             border: 1px solid rgba(69, 243, 255, 0.2); 
             border-radius: 16px; 
-            max-width: 420px; 
+            max-width: 440px; 
             margin: 0 auto; 
             background: #1f2833; 
             padding: 40px 30px; 
@@ -27,15 +27,13 @@
         }
         h1 { 
             font-family: 'Playfair Display', serif; 
-            font-size: 2.8rem; 
+            font-size: 2.6rem; 
             letter-spacing: 4px; 
             color: #ffffff; 
             margin-bottom: 0;
             font-weight: 400;
         }
         .hidden { display: none !important; }
-        
-        /* The special tagline parameters */
         .tagline { 
             font-family: 'Playfair Display', serif;
             color: #45f3ff; 
@@ -44,42 +42,30 @@
             margin-top: 8px; 
             letter-spacing: 2px;
         }
+        .divider { width: 40px; height: 1px; background: #45f3ff; margin: 25px auto; opacity: 0.6; }
         
-        .divider {
-            width: 40px;
-            height: 1px;
-            background: #45f3ff;
-            margin: 25px auto;
-            opacity: 0.6;
+        .description-text, .quiz-box {
+            font-size: 0.95rem; line-height: 1.8; letter-spacing: 1px; color: #b3b4b5; margin-bottom: 30px;
         }
-        
-        .description-text {
-            font-size: 0.95rem;
-            line-height: 1.8;
-            letter-spacing: 1px;
-            color: #b3b4b5;
-            text-align: justify;
-            text-justify: inter-word;
-            margin-bottom: 30px;
-        }
-        
+        .description-text { text-align: justify; }
+
         .btn { 
-            background: transparent; 
-            color: #45f3ff; 
-            border: 1px solid #45f3ff; 
-            padding: 14px 30px; 
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-weight: bold; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            transition: all 0.3s ease;
+            background: transparent; color: #45f3ff; border: 1px solid #45f3ff; 
+            padding: 14px 30px; font-size: 0.85rem; letter-spacing: 2px;
+            text-transform: uppercase; font-weight: bold; border-radius: 4px; 
+            cursor: pointer; transition: all 0.3s ease; width: 100%; box-sizing: border-box;
         }
-        .btn:hover {
-            background: #45f3ff;
-            color: #0b0c10;
+        .btn:hover { background: #45f3ff; color: #0b0c10; }
+
+        /* Quiz Interface Styling */
+        .question-title { font-family: 'Playfair Display', serif; color: #ffffff; font-size: 1.4rem; margin-bottom: 20px; }
+        .matrix-options { display: flex; flex-direction: column; gap: 12px; text-align: left; margin-top: 20px; }
+        .matrix-label { 
+            background: rgba(11, 12, 16, 0.6); padding: 12px 15px; border-radius: 6px; 
+            cursor: pointer; border: 1px solid transparent; display: flex; align-items: center; gap: 10px;
         }
+        .matrix-label:hover { border-color: rgba(69, 243, 255, 0.4); }
+        input[type="radio"] { accent-color: #45f3ff; }
     </style>
 </head>
 <body>
@@ -87,17 +73,43 @@
     <div class="pwa-frame">
         <h1>VASPERA</h1>
         <p id="app-tagline" class="tagline hidden">Where Stars Align</p>
-        
         <div class="divider"></div>
         
-        <div id="main-content" class="description-text">
-            Vaspera is a private digital salon for those who view connection as an art form rather than a game of chance. Rooted in the quiet elegance of continental courtships, our ecosystem brings together discerning individuals seeking intellectual harmony and profound aesthetic alignment. 
-            <br><br>
-            By moving beyond the noise of the superficial digital marketplace, Vaspera employs a meticulous matrix of personality compatibility to curate rare, intentional introductions. Here, we do not merely connect profiles; we orchestrate the architecture of romantic alignment for trajectories destined to converge. Access to this sanctuary is carefully gated by a variable demand token, ensuring our environment remains exclusively dedicated to those who approach companionship with absolute intention.
+        <div id="view-welcome">
+            <div class="description-text">
+                Vaspera is a private digital salon for those who view connection as an art form rather than a game of chance. Rooted in the quiet elegance of continental courtships, our ecosystem brings together discerning individuals seeking intellectual harmony and profound aesthetic alignment. 
+                <br><br>
+                By moving beyond the noise of the superficial digital marketplace, Vaspera employs a meticulous matrix of personality compatibility to curate rare, intentional introductions. Here, we do not merely connect profiles; we orchestrate the architecture of romantic alignment for trajectories destined to converge.
+            </div>
+            
+            <div id="install-ui" class="hidden">
+                <button class="btn" id="btn-download">Enter the Environment</button>
+            </div>
+            <div id="fallback-ui">
+                <button class="btn" onclick="startEcosystemFlow()">Initialize Alignment Sequence</button>
+            </div>
         </div>
 
-        <div id="install-ui" class="hidden">
-            <button class="btn" id="btn-download">Enter the Environment</button>
+        <div id="view-quiz" class="hidden">
+            <h3 id="question-number" style="color: #45f3ff; font-size: 0.8rem; letter-spacing: 2px;">SURVEY 01 / 03</h3>
+            <div id="question-text" class="question-title">How deeply do you prioritize intellectual solitude over collaborative social settings?</div>
+            
+            <div class="matrix-options">
+                <label class="matrix-label"><input type="radio" name="matrix_input" value="1"> Absolute Variance (Strongly Disagree)</label>
+                <label class="matrix-label"><input type="radio" name="matrix_input" value="2"> Slight Variance</label>
+                <label class="matrix-label"><input type="radio" name="matrix_input" value="3" checked> Symmetrical Balance (Neutral)</label>
+                <label class="matrix-label"><input type="radio" name="matrix_input" value="4"> Soft Resonance</label>
+                <label class="matrix-label"><input type="radio" name="matrix_input" value="5"> Absolute Resonance (Strongly Agree)</label>
+            </div>
+            <br>
+            <button class="btn" onclick="processNextQuestion()">Advance Trajectory</button>
+        </div>
+
+        <div id="view-results" class="hidden">
+            <div class="question-title">Sequence Concluded</div>
+            <p style="font-size: 0.95rem; line-height: 1.6; color: #b3b4b5;">Your architectural worldview metrics have been encrypted and submitted to our core database pool.</p>
+            <div class="divider"></div>
+            <p style="color: #45f3ff; font-style: italic;">Awaiting structural synchronization...</p>
         </div>
     </div>
 
@@ -105,44 +117,78 @@
         let deferredPrompt;
         const subline = document.getElementById('app-tagline');
         const installUi = document.getElementById('install-ui');
+        const fallbackUi = document.getElementById('fallback-ui');
         const downloadBtn = document.getElementById('btn-download');
 
-        // Service Worker operational check
+        // Sample questionnaire arrays parameters 
+        const questions = [
+            "How deeply do you prioritize intellectual solitude over collaborative settings?",
+            "Do you consider financial and professional transparency critical in early connection stages?",
+            "Does a partner's creative aesthetic expression hold equal weight to logical rationale?"
+        ];
+        let currentQuestionIndex = 0;
+        let selectedAnswers = [];
+
+        // PWA operational verification registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(reg => console.log('PWA system active'))
-                    .catch(err => console.error(err));
+                navigator.serviceWorker.register('/sw.js').catch(err => console.error(err));
             });
         }
 
-        // Detects if the mobile device browser supports installation
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
             installUi.classList.remove('hidden'); 
+            fallbackUi.classList.add('hidden');
         });
 
-        // Trigger action when user taps "Enter the Environment"
         downloadBtn.addEventListener('click', async () => {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
-                // Temporarily reveal subline during downloading lifecycle
                 subline.classList.remove('hidden'); 
                 deferredPrompt = null;
                 installUi.classList.add('hidden');
+                setTimeout(startEcosystemFlow, 1000); // Transitions to quiz right after prompt action
             }
         });
 
-        // Global Event Hook: Triggers immediately when the app download succeeds
-        window.addEventListener('appinstalled', (evt) => {
-            subline.classList.remove('hidden'); // Ensure subtitle stays visible
+        window.addEventListener('appinstalled', () => {
+            subline.classList.remove('hidden');
         });
 
-        // Keeps subline visible when running as a downloaded standalone app container
         if (window.matchMedia('(display-mode: standalone)').matches) {
            subline.classList.remove('hidden');
         }
+
+        // --- SCREEN VIEW TRANSITION OPERATIONS ---
+        function startEcosystemFlow() {
+            document.getElementById('view-welcome').classList.add('hidden');
+            document.getElementById('view-quiz').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            document.getElementById('question-number').innerText = `SURVEY 0${currentQuestionIndex + 1} / 0${questions.length}`;
+            document.getElementById('question-text').innerText = questions[currentQuestionIndex];
+            document.querySelector('input[name="matrix_input"][value="3"]').checked = true; // resets option parameter to neutral
+        }
+
+        function processNextQuestion() {
+            const selectedRadio = document.querySelector('input[name="matrix_input"]:checked');
+            selectedAnswers.push(selectedRadio.value);
+
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                renderQuestion();
+            } else {
+                // All questions captured: reveal final alignment status screen
+                document.getElementById('view-quiz').classList.add('hidden');
+                document.getElementById('view-results').classList.remove('hidden');
+                console.log("Vector string array submitted to memory pool:", selectedAnswers.join(','));
+            }
+        }
     </script>
 </body>
-</html>
+    </html>
+    
