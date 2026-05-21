@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#45f3ff">
+    <title>Vaspera</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #0b0c10; color: #c5c6c7; padding: 40px; text-align: center; }
+        .card { background: #1f2833; border-radius: 8px; padding: 30px; max-width: 600px; margin: 0 auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .hidden { display: none; }
+        .btn { background: #45f3ff; color: #0b0c10; border: none; padding: 12px 24px; font-weight: bold; border-radius: 4px; cursor: pointer; margin-top: 15px; }
+        .tagline { color: #45f3ff; font-style: italic; font-size: 1.2rem; margin-top: 5px; transition: all 0.5s ease; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1 id="brand-title">Vaspera</h1>
+    <p id="subline" class="tagline hidden">Where Stars Align</p>
+    
+    <hr style="border-color: #45f3ff; margin: 20px 0;">
+
+    <div id="install-banner" class="hidden">
+        <p>Enhance your matchmaking experience by downloading the official standalone app container.</p>
+        <button class="btn" id="btn-install">Download Vaspera</button>
+    </div>
+
+    <div id="main-content">
+        <p>Welcome to the premium matchmaking ecosystem interface.</p>
+    </div>
+</div>
+
+<script>
+  let deferredPrompt;
+  const subline = document.getElementById('subline');
+  const installBanner = document.getElementById('install-banner');
+  const btnInstall = document.getElementById('btn-install');
+
+  // Register PWA service worker tracking logic
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Worker Active'))
+        .catch(err => console.error(err));
+    });
+  }
+
+  // Detects if the platform is installable on the device browser
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    // Reveal download prompt menu option to user
+    installBanner.classList.remove('hidden');
+  });
+
+  // Action hook executed when user taps the Download button
+  btnInstall.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      // Show the subline while downloading is happening
+      subline.classList.remove('hidden'); 
+      
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`User installation decision outcome: ${outcome}`);
+      deferredPrompt = null;
+      installBanner.classList.add('hidden');
+    }
+  });
+
+  // Global event tracker: Fires when installation completes successfully
+  window.addEventListener('appinstalled', (evt) => {
+    console.log('Vaspera was successfully added to home screen.');
+    // Keep subline permanently visible inside the running downloaded app layout
+    subline.classList.remove('hidden');
+    installBanner.classList.add('hidden');
+  });
+
+  // Check if the app is running as a downloaded standalone container app
+  if (window.matchMedia('(display-mode: standalone)').matches) {
+     subline.classList.remove('hidden');
+  }
+</script>
+</body>
+</html>
