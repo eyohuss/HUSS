@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.exc import IntegrityError # Import specific database exception trackers
+from sqlalchemy.exc import IntegrityError
 import os
 
 app = Flask(__name__)
@@ -17,12 +17,12 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     quiz_answers = db.Column(db.String(255), default="")
 
-# --- CORE FRONTEND ENTRY ROUTE ---
-@app.route('/')
-def index():
-    return render_template('index.html')
+# --- MANDATORY PRODUCTION DATABASE INITIALIZATION ---
+# This executes unconditionally on boot, regardless of Gunicorn server structures.
+with app.app_context():
+    db.create_all()
 
-# --- ERROR-PROOF ACCOUNT REGISTRATION API ---
+# --- INTERACTIVE ACCOUNT REGISTRATION API ---
 @app.route('/api/register', methods=['POST'])
 def register_user():
     try:
@@ -33,27 +33,24 @@ def register_user():
         username_input = data.get('username', '').strip()
         email_input = data.get('email', '').strip()
         
-        # Validation Parameter Check
         if not username_input or not email_input:
             return jsonify({"status": "error", "message": "Identity fields cannot remain empty"}), 400
             
         new_user = User(username=username_input, email=email_input)
         db.session.add(new_user)
-        db.session.commit() # The exact point where an IntegrityError could happen
+        db.session.commit()
         
         return jsonify({"status": "success", "user_id": new_user.id}), 201
 
     except IntegrityError:
-        db.session.rollback() # Cancels the broken save attempt instantly to protect database health
+        db.session.rollback()
         return jsonify({"status": "error", "message": "This unique handle or email is already registered"}), 409
         
     except Exception as general_error:
         db.session.rollback()
-        # Fallback catches any unknown system failure (e.g., server filesystem space full)
-        print(f"System Operational Exception intercepted: {str(general_error)}")
         return jsonify({"status": "error", "message": "An unexpected synchronization anomaly occurred"}), 500
 
-# --- ERROR-PROOF QUIZ METRIC SUBMISSION API ---
+# --- INTERACTIVE QUIZ METRIC SUBMISSION API ---
 @app.route('/api/submit-quiz', methods=['POST'])
 def submit_quiz():
     try:
@@ -76,7 +73,11 @@ def submit_quiz():
         db.session.rollback()
         return jsonify({"status": "error", "message": "Matrix writing failure intercepted"}), 500
 
-# --- PROGRESSIVE WEB APP FILE ENGINES ---
+# --- CORE FRONTEND ENTRY ROUTES ---
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 @app.route('/manifest.json')
 def serve_manifest():
     return app.send_static_file('manifest.json')
@@ -88,7 +89,4 @@ def serve_sw():
     return response
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True, port=5000)
-    
