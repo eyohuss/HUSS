@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D'XZUS News - Political News Hub for Nigeria, Africa & World</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- BREAKING NEWS TICKER -->
+    <div class="breaking-ticker">
+        <div class="ticker-label">🔴 BREAKING</div>
+        <div class="ticker-content">
+            <div class="ticker-scroll">
+                <span class="ticker-item">Nigeria's Senate passes landmark education reform bill amid heated debates</span>
+                <span class="ticker-item">African Union convenes emergency session on climate crisis</span>
+                <span class="ticker-item">Tech giants announce $500M investment in African startups</span>
+                <span class="ticker-item">Presidential debate scheduled for next month with key policy focus</span>
+                <span class="ticker-item">Nigeria's Senate passes landmark education reform bill amid heated debates</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- STICKY HEADER -->
+    <header class="sticky-header">
+        <div class="header-container">
+            <!-- Logo -->
+            <div class="logo">
+                <span class="logo-text">D'XZUS</span>
+                <span class="logo-subtext">NEWS</span>
+            </div>
+
+            <!-- Hamburger Menu for Mobile -->
+            <button class="hamburger-menu" id="hamburgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Full Navigation -->
+            <nav class="main-nav" id="mainNav">
+                <a href="#" class="nav-link active">Home</a>
+                <a href="#" class="nav-link">Nigeria</a>
+                <a href="#" class="nav-link">Africa</a>
+                <a href="#" class="nav-link">World</a>
+                <a href="#" class="nav-link">Elections</a>
+                <a href="#" class="nav-link">Opinion</a>
+                <a href="#" class="nav-link">Entertainment</a>
+                <a href="#" class="nav-link">Sports</a>
+            </nav>
+
+            <!-- Search & Social Icons -->
+            <div class="header-actions">
+                <div class="search-wrapper">
+                    <input type="text" placeholder="Search stories..." class="search-box" id="searchBox">
+                    <button class="search-btn">🔍</button>
+                </div>
+                <div class="social-icons">
+                    <a href="#" class="social-icon" title="Facebook">f</a>
+                    <a href="#" class="social-icon" title="Twitter">𝕏</a>
+                    <a href="#" class="social-icon" title="Instagram">📷</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        <!-- HERO FEATURED STORY -->
+        <section class="hero-story">
+            <div class="hero-image" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); position: relative; overflow: hidden;">
+                <img src="https://via.placeholder.com/1200x400?text=D'XZUS+Featured+Story" alt="Featured Story">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-content">
+                <div class="hero-category">Nigeria</div>
+                <h1 class="hero-title">Nigeria's Economic Policy Shift Could Reshape West Africa's Future</h1>
+                <p class="hero-excerpt">Breaking down the latest policy announcements and what they mean for the continent's largest economy...</p>
+                <div class="hero-meta">
+                    <span class="author-name">By Chief Editor Sarah Okafor</span>
+                    <span class="publish-time">2 hours ago</span>
+                </div>
+                <button class="read-more-btn">Read Full Story →</button>
+            </div>
+        </section>
+
+        <!-- MAIN GRID + SIDEBAR LAYOUT -->
+        <div class="content-wrapper">
+            <!-- LEFT: Magazine Grid -->
+            <section class="magazine-grid">
+                <h2 class="section-title">Latest Stories</h2>
+                
+                <!-- Wide Featured Card -->
+                <article class="article-card featured-card">
+                    <div class="article-image">
+                        <img src="https://via.placeholder.com/600x300?text=African+Union" alt="African Union">
+                        <span class="category-tag">Africa</span>
+                    </div>
+                    <div class="article-content">
+                        <h3 class="article-title">African Union Announces Climate Emergency Task Force</h3>
+                        <p class="article-excerpt">The AU's bold new initiative aims to coordinate climate action across 54 nations with ambitious 2030 targets...</p>
+                        <div class="article-meta">
+                            <span class="author">By Dr. Amara Mensah</span>
+                            <span class="date">4 hours ago</span>
+                            <span class="read-time">5 min read</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Regular Article Cards (Grid) -->
+                <div class="articles-grid">
+                    <article class="article-card">
+                        <div class="article-image">
+                            <img src="https://via.placeholder.com/300x200?text=Tech+Investment" alt="Tech Investment">
+                            <span class="category-tag">World</span>
+                        </div>
+                        <div class="article-content">
+                            <h4 class="article-title">Global Tech Giants Invest Billions in African Tech Hubs</h4>
+                            <p class="article-excerpt">Silicon Valley eyes African startups as next frontier for innovation...</p>
+                            <div class="article-meta">
+                                <span class="date">6 hours ago</span>
+                                <span class="read-time">4 min</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-image">
+                            <img src="https://via.placeholder.com/300x200?text=Entertainment+News" alt="Entertainment">
+                            <span class="category-tag">Entertainment</span>
+                        </div>
+                        <div class="article-content">
+                            <h4 class="article-title">Nollywood Stars Shine at Pan-African Awards Ceremony</h4>
+                            <p class="article-excerpt">A celebration of African cinema and creative talent across the continent...</p>
+                            <div class="article-meta">
+                                <span class="date">8 hours ago</span>
+                                <span class="read-time">3 min</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-image">
+                            <img src="https://via.placeholder.com/300x200?text=Sports+Update" alt="Sports">
+                            <span class="category-tag">Sports</span>
+                        </div>
+                        <div class="article-content">
+                            <h4 class="article-title">African Football League Season Kicks Off with Record Viewership</h4>
+                            <p class="article-excerpt">New streaming deals bring continental football to millions worldwide...</p>
+                            <div class="article-meta">
+                                <span class="date">9 hours ago</span>
+                                <span class="read-time">3 min</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-image">
+                            <img src="https://via.placeholder.com/300x200?text=Fashion+Week" alt="Fashion">
+                            <span class="category-tag">Fashion</span>
+                        </div>
+                        <div class="article-content">
+                            <h4 class="article-title">Lagos Fashion Week Showcases Traditional African Designs</h4>
+                            <p class="article-excerpt">Designers blend heritage with contemporary style in stunning collection...</p>
+                            <div class="article-meta">
+                                <span class="date">10 hours ago</span>
+                                <span class="read-time">4 min</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-image">
+                            <img src="https://via.placeholder.com/300x200?text=Art+Exhibition" alt="Art">
+                            <span class="category-tag">Art & Culture</span>
+                        </div>
+                        <div class="article-content">
+                            <h4 class="article-title">Contemporary African Art Dominates Global Auction Market</h4>
+                            <p class="article-excerpt">African artists break records as international demand surges...</p>
+                            <div class="article-meta">
+                                <span class="date">12 hours ago</span>
+                                <span class="read-time">5 min</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-image">
+                            <img src="https://via.placeholder.com/300x200?text=Music+Festival" alt="Music">
+                            <span class="category-tag">Music</span>
+                        </div>
+                        <div class="article-content">
+                            <h4 class="article-title">Afrobeats Festival Draws Millions of Fans to Lagos</h4>
+                            <p class="article-excerpt">Three-day music extravaganza celebrates African sounds and culture...</p>
+                            <div class="article-meta">
+                                <span class="date">14 hours ago</span>
+                                <span class="read-time">3 min</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- RIGHT: SIDEBAR -->
+            <aside class="sidebar">
+                <!-- TOP 5 STORIES PANEL -->
+                <div class="sidebar-widget top-stories">
+                    <h3 class="widget-title">Top 5 Stories</h3>
+                    <ol class="top-stories-list">
+                        <li>
+                            <span class="story-number">1</span>
+                            <a href="#" class="story-link">Nigeria's Economic Policy Shift Could Reshape West Africa</a>
+                        </li>
+                        <li>
+                            <span class="story-number">2</span>
+                            <a href="#" class="story-link">African Union Announces Climate Emergency Task Force</a>
+                        </li>
+                        <li>
+                            <span class="story-number">3</span>
+                            <a href="#" class="story-link">Global Tech Giants Invest Billions in African Tech Hubs</a>
+                        </li>
+                        <li>
+                            <span class="story-number">4</span>
+                            <a href="#" class="story-link">Nollywood Stars Shine at Pan-African Awards</a>
+                        </li>
+                        <li>
+                            <span class="story-number">5</span>
+                            <a href="#" class="story-link">African Football League Kicks Off with Record Viewership</a>
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- TRENDING STORIES -->
+                <div class="sidebar-widget trending">
+                    <h3 class="widget-title">Trending Now</h3>
+                    <div class="trending-item">
+                        <a href="#" class="trending-title">Presidential Election Coverage</a>
+                        <span class="trending-count">📈 12.5K reads</span>
+                    </div>
+                    <div class="trending-item">
+                        <a href="#" class="trending-title">Climate Crisis Solutions</a>
+                        <span class="trending-count">📈 8.3K reads</span>
+                    </div>
+                    <div class="trending-item">
+                        <a href="#" class="trending-title">Tech Innovation Hub</a>
+                        <span class="trending-count">📈 7.1K reads</span>
+                    </div>
+                </div>
+
+                <!-- POLL WIDGET -->
+                <div class="sidebar-widget poll-widget">
+                    <h3 class="widget-title">Reader Poll</h3>
+                    <p class="poll-question">Which issue is most important to you?</p>
+                    <div class="poll-options">
+                        <div class="poll-option">
+                            <label>
+                                <input type="radio" name="poll" value="economy">
+                                <span>Economy & Jobs (45%)</span>
+                            </label>
+                            <div class="poll-bar" style="width: 45%"></div>
+                        </div>
+                        <div class="poll-option">
+                            <label>
+                                <input type="radio" name="poll" value="climate">
+                                <span>Climate & Environment (28%)</span>
+                            </label>
+                            <div class="poll-bar" style="width: 28%"></div>
+                        </div>
+                        <div class="poll-option">
+                            <label>
+                                <input type="radio" name="poll" value="education">
+                                <span>Education & Healthcare (18%)</span>
+                            </label>
+                            <div class="poll-bar" style="width: 18%"></div>
+                        </div>
+                        <div class="poll-option">
+                            <label>
+                                <input type="radio" name="poll" value="security">
+                                <span>Security & Safety (9%)</span>
+                            </label>
+                            <div class="poll-bar" style="width: 9%"></div>
+                        </div>
+                    </div>
+                    <button class="vote-btn">Cast Your Vote</button>
+                </div>
+
+                <!-- NEWSLETTER SIGNUP -->
+                <div class="sidebar-widget newsletter">
+                    <h3 class="widget-title">Daily Briefing</h3>
+                    <p class="newsletter-text">Get the top 5 political stories delivered to your inbox every morning</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                    <p class="newsletter-privacy">We respect your privacy. Unsubscribe anytime.</p>
+                </div>
+
+                <!-- TOPIC TAGS -->
+                <div class="sidebar-widget tags">
+                    <h3 class="widget-title">Popular Topics</h3>
+                    <div class="tags-cloud">
+                        <a href="#" class="tag">Politics</a>
+                        <a href="#" class="tag">Elections</a>
+                        <a href="#" class="tag">Economy</a>
+                        <a href="#" class="tag">Climate</a>
+                        <a href="#" class="tag">Technology</a>
+                        <a href="#" class="tag">Opinion</a>
+                        <a href="#" class="tag">Africa</a>
+                        <a href="#" class="tag">Nigeria</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- ELECTIONS & ANALYSIS SECTION -->
+        <section class="elections-section">
+            <h2 class="section-title">🗳️ Elections & Analysis</h2>
+            <div class="elections-grid">
+                <div class="election-card">
+                    <h3>Presidential Race 2025</h3>
+                    <div class="candidate">
+                        <span class="candidate-name">Candidate A</span>
+                        <div class="poll-progress" style="width: 42%;">42%</div>
+                    </div>
+                    <div class="candidate">
+                        <span class="candidate-name">Candidate B</span>
+                        <div class="poll-progress" style="width: 38%;">38%</div>
+                    </div>
+                    <div class="candidate">
+                        <span class="candidate-name">Candidate C</span>
+                        <div class="poll-progress" style="width: 20%;">20%</div>
+                    </div>
+                    <p class="election-note">Last updated: 2 hours ago</p>
+                </div>
+
+                <div class="election-analysis">
+                    <h4>Key Electoral Issues</h4>
+                    <ul>
+                        <li>Economic policies and job creation</li>
+                        <li>Healthcare reform proposals</li>
+                        <li>Education and youth employment</li>
+                        <li>Regional development plans</li>
+                    </ul>
+                    <a href="#" class="analysis-link">Read Full Analysis →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- OPINION/EDITORIAL STRIP -->
+        <section class="opinion-section">
+            <h2 class="section-title">✍️ Opinion & Editorial</h2>
+            <div class="opinion-grid">
+                <article class="opinion-card">
+                    <div class="columnist-avatar">SO</div>
+                    <div class="opinion-content">
+                        <h4 class="opinion-title">Why Africa's Tech Revolution Cannot Be Ignored</h4>
+                        <p class="columnist-name">By Dr. Sarah Okafor</p>
+                        <p class="columnist-bio">Senior Political Analyst & Tech Policy Expert</p>
+                        <p class="opinion-excerpt">The digital transformation sweeping across Africa represents one of the most significant geopolitical shifts of our time...</p>
+                        <a href="#" class="read-opinion">Read Opinion →</a>
+                    </div>
+                </article>
+
+                <article class="opinion-card">
+                    <div class="columnist-avatar">PM</div>
+                    <div class="opinion-content">
+                        <h4 class="opinion-title">Climate Policy: Between Progress and Pragmatism</h4>
+                        <p class="columnist-name">By Prof. Marcus Adeyemi</p>
+                        <p class="columnist-bio">Environmental Policy Strategist</p>
+                        <p class="opinion-excerpt">As African nations balance development with environmental concerns, a nuanced approach is essential for sustainable growth...</p>
+                        <a href="#" class="read-opinion">Read Opinion →</a>
+                    </div>
+                </article>
+
+                <article class="opinion-card">
+                    <div class="columnist-avatar">IN</div>
+                    <div class="opinion-content">
+                        <h4 class="opinion-title">Democracy at the Crossroads: What's Next for Africa?</h4>
+                        <p class="columnist-name">By Ife Nwakwo</p>
+                        <p class="columnist-bio">Political Correspondent & Democracy Researcher</p>
+                        <p class="opinion-excerpt">Recent electoral trends signal both challenges and opportunities for democratic institutions across the continent...</p>
+                        <a href="#" class="read-opinion">Read Opinion →</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- AUTHOR BIO SECTION -->
+        <section class="authors-section">
+            <h2 class="section-title">👤 Meet Our Team</h2>
+            <div class="authors-grid">
+                <div class="author-card">
+                    <div class="author-avatar">SO</div>
+                    <h4 class="author-name">Sarah Okafor</h4>
+                    <p class="author-title">Editor-in-Chief</p>
+                    <p class="author-bio">20+ years covering African politics and policy. Pulitzer Prize nominee for investigative journalism.</p>
+                    <div class="author-social">
+                        <a href="#">Twitter</a>
+                        <a href="#">Email</a>
+                    </div>
+                </div>
+
+                <div class="author-card">
+                    <div class="author-avatar">MA</div>
+                    <h4 class="author-name">Marcus Adeyemi</h4>
+                    <p class="author-title">Senior Political Correspondent</p>
+                    <p class="author-bio">Specializing in West African politics and economic policy. Based in Lagos.</p>
+                    <div class="author-social">
+                        <a href="#">Twitter</a>
+                        <a href="#">Email</a>
+                    </div>
+                </div>
+
+                <div class="author-card">
+                    <div class="author-avatar">AM</div>
+                    <h4 class="author-name">Amara Mensah</h4>
+                    <p class="author-title">Environmental Affairs Editor</p>
+                    <p class="author-bio">Climate policy expert focusing on African nations' climate commitments and green initiatives.</p>
+                    <div class="author-social">
+                        <a href="#">Twitter</a>
+                        <a href="#">Email</a>
+                    </div>
+                </div>
+
+                <div class="author-card">
+                    <div class="author-avatar">IN</div>
+                    <h4 class="author-name">Ife Nwakwo</h4>
+                    <p class="author-title">Opinion & Analysis Editor</p>
+                    <p class="author-bio">Democracy and governance researcher with focus on African electoral processes.</p>
+                    <div class="author-social">
+                        <a href="#">Twitter</a>
+                        <a href="#">Email</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>About D'XZUS News</h4>
+                <p>Your trusted source for political news, analysis, and insights from Nigeria, Africa, and the world. Committed to factual, unbiased reporting.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="#">Nigeria News</a></li>
+                    <li><a href="#">Africa News</a></li>
+                    <li><a href="#">World News</a></li>
+                    <li><a href="#">Elections</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>More</h4>
+                <ul>
+                    <li><a href="#">Entertainment</a></li>
+                    <li><a href="#">Sports</a></li>
+                    <li><a href="#">Fashion</a></li>
+                    <li><a href="#">Art & Culture</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Advertise</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 D'XZUS News. All rights reserved. | Covering Africa's stories with integrity and insight.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
