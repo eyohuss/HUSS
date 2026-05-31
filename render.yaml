@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: huss-app
+    env: python
+    region: oregon
+    plan: free
+    
+    # Build configuration
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --workers 4 --worker-class sync --bind 0.0.0.0:$PORT --timeout 30
+    
+    # Environment variables
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_APP
+        value: app.py
+      - key: FLASK_DEBUG
+        value: "False"
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: SECRET_KEY
+        generateValue: true
+    
+    # Health check
+    healthCheckPath: /
